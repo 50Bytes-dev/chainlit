@@ -23,7 +23,8 @@ import { settingsState } from 'state/settings';
 import { threadsFiltersState } from 'state/threads';
 
 import { ThreadList } from './ThreadList';
-import Filters from './filters';
+
+// import Filters from './filters';
 
 const DRAWER_WIDTH = 260;
 const BATCH_SIZE = 20;
@@ -173,7 +174,7 @@ const _ThreadHistorySideBar = () => {
             <KeyboardDoubleArrowLeftIcon sx={{ color: 'text.primary' }} />
           </IconButton>
         </Stack>
-        <Filters />
+        {/*<Filters />*/}
         {threadHistory ? (
           <ThreadList
             threadHistory={threadHistory}

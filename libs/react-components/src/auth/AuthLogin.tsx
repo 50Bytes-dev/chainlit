@@ -47,6 +47,7 @@ const getErrorMessage = (errorType?: string): string => {
 };
 
 type AuthLoginProps = {
+  children?: React.ReactNode;
   title: string;
   error?: string;
   providers: string[];
@@ -73,6 +74,7 @@ type AuthLoginProps = {
 };
 
 const AuthLogin = ({
+  children,
   title,
   error,
   providers,
@@ -277,6 +279,8 @@ const AuthLogin = ({
           ))}
         </Stack>
       ) : null}
+
+      {children}
     </AuthTemplate>
   );
 };
