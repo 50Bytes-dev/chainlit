@@ -83,8 +83,9 @@ export default function Login() {
     }
   }, [config, user]);
 
-  const onLogin = () => {
-    window.location.href = `${import.meta.env.VITE_APP_HOST}/api/auth/login`;
+  const onLogin = async () => {
+    const api_endpoint = await apiClient.getApiHost();
+    window.location.href = `${api_endpoint}/api/auth/login`;
   };
 
   return (

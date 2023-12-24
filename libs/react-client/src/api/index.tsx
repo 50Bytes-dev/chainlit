@@ -45,7 +45,8 @@ export class APIBase {
     public httpEndpoint: string,
     public on401?: () => void,
     public onError?: (error: ClientError) => void
-  ) {}
+  ) {
+  }
 
   buildEndpoint(path: string) {
     if (this.httpEndpoint.endsWith('/')) {
@@ -193,6 +194,7 @@ export class ChainlitAPI extends APIBase {
               console.error(err);
             });
         }
+
         push();
       }
     });
@@ -254,14 +256,14 @@ export class ChainlitAPI extends APIBase {
       }
 
       // Track the progress of the upload
-      xhr.upload.onprogress = function (event) {
+      xhr.upload.onprogress = function(event) {
         if (event.lengthComputable) {
           const percentage = (event.loaded / event.total) * 100;
           onProgress(percentage);
         }
       };
 
-      xhr.onload = function () {
+      xhr.onload = function() {
         if (xhr.status === 200) {
           const response = JSON.parse(xhr.responseText);
           resolve(response);
@@ -270,7 +272,7 @@ export class ChainlitAPI extends APIBase {
         }
       };
 
-      xhr.onerror = function () {
+      xhr.onerror = function() {
         reject('Upload error');
       };
 
@@ -289,6 +291,14 @@ export class ChainlitAPI extends APIBase {
       queryParams += `&token=${accessToken}`;
     }
     return this.buildEndpoint(`/project/file/${id}${queryParams}`);
+  }
+
+  async getApiHost() {
+    const res = await this.get(
+      `/api-host`
+    );
+
+    return res.json();
   }
 
   getLogoEndpoint(theme: string) {

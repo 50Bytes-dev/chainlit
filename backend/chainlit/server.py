@@ -139,7 +139,6 @@ def get_build_dir():
 
 build_dir = get_build_dir()
 
-
 app = FastAPI(lifespan=lifespan)
 
 app.mount("/public", StaticFiles(directory="public", check_dir=False), name="public")
@@ -152,7 +151,6 @@ app.mount(
     name="assets",
 )
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -160,7 +158,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 socket = SocketManager(
     app,
@@ -678,6 +675,11 @@ async def get_logo(theme: Optional[Theme] = Query(Theme.light)):
     media_type, _ = mimetypes.guess_type(logo_path)
 
     return FileResponse(logo_path, media_type=media_type)
+
+
+@app.get("/api-host")
+async def get_api_host():
+    return os.environ.get("CHAINLIT_API_HOST")
 
 
 def register_wildcard_route_handler():
